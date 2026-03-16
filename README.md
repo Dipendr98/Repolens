@@ -1,13 +1,29 @@
-# 📊 GitHub Analyser — Skill Suite for Claude Code
+![RepoLens Banner](banner.svg)
 
-A comprehensive GitHub repository analysis system for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
-Analyse any public repo's health, code quality, security posture, contributor dynamics, and activity — then generate scored reports and professional PDF deliverables.
+<div align="center">
+
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-38bdf8?style=flat-square&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code)
+[![License: MIT](https://img.shields.io/badge/License-MIT-4ade80?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.8+-818cf8?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![GitHub API](https://img.shields.io/badge/GitHub%20API-v3-f59e0b?style=flat-square&logo=github&logoColor=white)](https://docs.github.com/en/rest)
+
+**Deep-dive any GitHub repository in seconds. Scores, charts, PDF reports — all from your terminal.**
+
+[Install Now](#installation) · [Commands](#commands) · [How It Works](#how-it-works) · [Use Cases](#use-cases)
+
+</div>
 
 ---
 
-## What You Get
+## What Is RepoLens?
 
-Type a command and get instant, multi-dimensional analysis:
+Ever stared at a GitHub repo wondering *"Is this actually well-maintained? Is it safe to use? Who really drives this project?"*
+
+**RepoLens** answers all of that — instantly.
+
+Drop a GitHub URL into [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and watch 5 parallel AI agents tear through the repository, scoring it across code quality, activity health, contributor dynamics, security posture, and documentation. You get a clean scored report, beautiful charts, and a client-ready PDF — all from a single command.
+
+No web dashboards. No sign-ups. No API keys needed to get started. Just type `/github analyse <url>` and go.
 
 ```
 > /github analyse https://github.com/supabase/supabase
@@ -29,22 +45,27 @@ Overall Repository Score: 81/100  [Grade: B]
 
 ## Installation
 
-### One-Command Install
+### ⚡ One Command
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/github-analyser/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Dipendr98/Repolens/main/install.sh | bash
 ```
 
-### Manual Install
+### Manual
+
 ```bash
-git clone https://github.com/YOUR_USERNAME/github-analyser.git
-cd github-analyser
+git clone https://github.com/Dipendr98/Repolens.git
+cd Repolens
 chmod +x install.sh && ./install.sh
 ```
 
-### Optional: PDF Report Support
+### PDF Reports (Optional but Recommended)
+
 ```bash
 pip install reportlab matplotlib numpy
 ```
+
+That's it. Open Claude Code and start analysing.
 
 ---
 
@@ -52,97 +73,147 @@ pip install reportlab matplotlib numpy
 
 | Command | What It Does |
 |---|---|
-| `/github analyse <url>` | Full analysis with 5 parallel agents + all charts |
-| `/github overview <url>` | Quick metadata overview |
-| `/github activity <url>` | Commit trends, issue velocity, PR cadence |
-| `/github contributors <url>` | Bus factor, contributor map, community health |
-| `/github code <url>` | Code quality, CI/CD, test coverage signals |
-| `/github security <url>` | Security posture, branch protection, dependency risks |
-| `/github compare <url1> <url2>` | Side-by-side repo comparison |
-| `/github report <url>` | Full Markdown report |
-| `/github report-pdf <url>` | Professional PDF with embedded charts |
+| `/github analyse <url>` | 🔬 Full deep analysis — 5 agents, all charts, scored report |
+| `/github overview <url>` | 📦 Quick metadata: stars, forks, language, license, topics |
+| `/github activity <url>` | 📈 Commit heatmap, PR velocity, issue response time |
+| `/github contributors <url>` | 👥 Bus factor, top contributors, community health |
+| `/github code <url>` | 🧪 Code quality, CI/CD config, test coverage signals |
+| `/github security <url>` | 🔒 Branch protection, Dependabot, CodeQL, secrets scan |
+| `/github compare <url1> <url2>` | ⚖️ Side-by-side repo comparison |
+| `/github report <url>` | 📄 Full structured Markdown report |
+| `/github report-pdf <url>` | 📑 Professional multi-page PDF with embedded charts |
+
+---
+
+## How It Works
+
+RepoLens is a **Claude Code skill** — a set of instruction files that tell Claude exactly how to analyse, score, and visualise GitHub repositories. When you run a command, Claude orchestrates the whole pipeline:
+
+```
+You type /github analyse <url>
+         │
+         ▼
+┌─────────────────────────────┐
+│   SKILL.md (Orchestrator)   │
+│   Parses URL, routes task   │
+└────────────┬────────────────┘
+             │  spawns
+    ┌────────▼─────────────────────────────────────┐
+    │            5 Parallel Agents                  │
+    │  ┌──────────┐  ┌──────────┐  ┌────────────┐  │
+    │  │   Code   │  │ Activity │  │ Community  │  │
+    │  │ Quality  │  │  Health  │  │ & Bus Fac. │  │
+    │  └──────────┘  └──────────┘  └────────────┘  │
+    │       ┌────────────┐  ┌──────────────┐        │
+    │       │  Security  │  │  Docs & DX   │        │
+    │       └────────────┘  └──────────────┘        │
+    └──────────────────┬───────────────────────────┘
+                       │
+    ┌──────────────────▼───────────────────────────┐
+    │           Python Scripts                       │
+    │  fetch_repo.py → GitHub API → local cache      │
+    │  generate_charts.py → 5 chart types            │
+    │  generate_pdf_report.py → multi-page PDF        │
+    └──────────────────┬───────────────────────────┘
+                       │
+               Scored report + charts + PDF
+```
 
 ---
 
 ## Scoring Methodology
 
+Every repository is graded across 5 dimensions:
+
 | Dimension | Weight | What It Measures |
 |---|---|---|
-| Code Quality | 25% | Structure, tests, CI/CD, types, containerization |
-| Activity & Health | 20% | Commit cadence, issue response, PR velocity |
-| Community | 20% | Bus factor, contributors, governance, COC |
-| Security | 20% | Branch protection, Dependabot, CodeQL, secrets |
-| Documentation & DX | 15% | README quality, CHANGELOG, API docs, examples |
+| 🧪 Code Quality | 25% | Tests, CI/CD, types, structure, containerisation |
+| 📈 Activity & Health | 20% | Commit cadence, PR velocity, issue response time |
+| 👥 Community | 20% | Bus factor, contributor diversity, governance |
+| 🔒 Security | 20% | Branch protection, Dependabot, CodeQL, secrets |
+| 📄 Docs & DX | 15% | README quality, CHANGELOG, API docs, examples |
 
-**Grade:** A (90+) · B (75–89) · C (60–74) · D (40–59) · F (<40)
+**Grades:** `A` (90+) · `B` (75–89) · `C` (60–74) · `D` (40–59) · `F` (<40)
+
+---
+
+## Charts Generated
+
+Run `/github analyse` or `/github report-pdf` and you get:
+
+- **🗓️ 52-Week Commit Heatmap** — GitHub-style activity grid showing development pulse
+- **📈 Weekly Commit Trend** — 26-week trend line with 4-week moving average
+- **👥 Contributor Analysis** — Pie chart (share) + bar chart (commits) for top contributors
+- **🔤 Language Breakdown** — Donut chart of language distribution
+- **🐛 Issues & PRs Overview** — Open vs closed bar chart
+
+---
+
+## Use Cases
+
+**🧑‍💻 For Developers**
+Evaluating a new library to add as a dependency? Run `/github analyse` before you `npm install`. Check the bus factor, security posture, and maintenance health — before your project depends on it.
+
+**🏢 For Technical Due Diligence**
+Assessing an open-source project for enterprise adoption? Generate a `/github report-pdf` and share it with your engineering lead. It's a professional, client-ready document — not a raw JSON blob.
+
+**🔍 For Comparing Alternatives**
+Can't choose between two state management libraries? `/github compare <url1> <url2>` gives you a head-to-head breakdown across every dimension so you can pick with confidence.
+
+**🛠️ For Maintainers**
+Want to audit your own repo before open-sourcing it? RepoLens will surface your bus factor risk, missing security configs, documentation gaps, and give you a prioritised list of improvements.
 
 ---
 
 ## Architecture
 
 ```
-github-analyser/
-├── SKILL.md                          # Main orchestrator (routes /github commands)
+Repolens/
+├── SKILL.md                          # Main orchestrator — routes all /github commands
 │
 ├── skills/
-│   ├── gh-overview/SKILL.md          # Quick repo overview
-│   ├── gh-activity/SKILL.md          # Activity & pulse analysis
-│   ├── gh-contributors/SKILL.md      # Contributor & community analysis
-│   ├── gh-code-quality/SKILL.md      # Code quality signals
-│   ├── gh-security/SKILL.md          # Security posture
+│   ├── gh-overview/SKILL.md          # Metadata + quick stats
+│   ├── gh-activity/SKILL.md          # Commit + issue + PR analysis
+│   ├── gh-contributors/SKILL.md      # Bus factor + contributor map
+│   ├── gh-code-quality/SKILL.md      # Code structure + CI/CD signals
+│   ├── gh-security/SKILL.md          # Security posture audit
 │   ├── gh-compare/SKILL.md           # Side-by-side comparison
-│   ├── gh-report/SKILL.md            # Markdown report
-│   └── gh-report-pdf/SKILL.md        # PDF report
+│   ├── gh-report/SKILL.md            # Markdown report generator
+│   └── gh-report-pdf/SKILL.md        # PDF report generator
 │
 ├── agents/
 │   ├── gh-code-agent.md              # Code quality subagent
-│   ├── gh-activity-agent.md          # Activity subagent
-│   ├── gh-community-agent.md         # Community subagent
-│   ├── gh-security-agent.md          # Security subagent
-│   └── gh-docs-agent.md              # Docs & DX subagent
+│   ├── gh-activity-agent.md          # Activity & health subagent
+│   ├── gh-community-agent.md         # Community & contributors subagent
+│   ├── gh-security-agent.md          # Security posture subagent
+│   └── gh-docs-agent.md              # Documentation & DX subagent
 │
 ├── scripts/
-│   ├── fetch_repo.py                 # GitHub API data fetcher + cache
-│   ├── generate_charts.py            # All chart generation (matplotlib)
-│   └── generate_pdf_report.py        # Professional PDF (reportlab)
+│   ├── fetch_repo.py                 # GitHub API fetcher with local cache
+│   ├── generate_charts.py            # 5 chart types via matplotlib
+│   └── generate_pdf_report.py        # Multi-page PDF via reportlab
 │
 ├── templates/
-│   └── report-template.md            # Markdown report template
+│   └── report-template.md            # Structured Markdown report template
 │
-├── install.sh
-├── uninstall.sh
-└── requirements.txt
+├── install.sh                        # One-command installer
+├── uninstall.sh                      # Clean uninstaller
+└── requirements.txt                  # Python dependencies
 ```
 
 ---
 
 ## GitHub Token (Recommended)
 
-Without a token: 60 requests/hour (usually sufficient for one analysis).
-With a token: 5,000 requests/hour + access to more API endpoints.
+RepoLens works without a token, but the GitHub API rate-limits unauthenticated requests to **60/hour**.
+
+With a personal access token you get **5,000 requests/hour** plus access to additional endpoints (branch protection, vulnerability alerts, community profiles).
 
 ```bash
-export GITHUB_TOKEN=ghp_your_token_here
+export GITHUB_TOKEN=ghp_your_personal_access_token
 ```
 
----
-
-## Use Cases
-
-**For Developers:**
-- Evaluate a library before adding it as a dependency
-- Audit your own repo before open-sourcing
-- Compare alternatives side-by-side
-
-**For Technical Due Diligence:**
-- Assess an open source project for enterprise adoption
-- Evaluate a startup's codebase health
-- Generate a client-ready PDF report
-
-**For Maintainers:**
-- Identify gaps in your security posture
-- Track contributor health and bus factor
-- Get prioritised improvement recommendations
+Create one at: **GitHub → Settings → Developer Settings → Personal Access Tokens → Tokens (classic)** — only `public_repo` scope needed for public repos.
 
 ---
 
@@ -154,6 +225,25 @@ export GITHUB_TOKEN=ghp_your_token_here
 
 ---
 
+## Requirements
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
+- Python 3.8+
+- `pip install requests matplotlib numpy` (auto-installed by `install.sh`)
+- `pip install reportlab` (optional, for PDF reports)
+
+---
+
 ## License
 
-MIT
+MIT — use it, fork it, build on it. A ⭐ is always appreciated.
+
+---
+
+<div align="center">
+
+**Built with 🔍 by [Dipendr98](https://github.com/Dipendr98)**
+
+*RepoLens is a Claude Code skill — not an official Anthropic product.*
+
+</div>
