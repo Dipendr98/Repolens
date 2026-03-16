@@ -1,15 +1,18 @@
-![RepoLens Banner](banner.svg)
-
 <div align="center">
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&pause=1000&color=38BDF8&center=true&vCenter=true&width=600&lines=Deep-dive+any+GitHub+repo+in+seconds.;5+parallel+AI+agents.+Scores%2C+charts%2C+PDF+reports.;Built+as+a+Claude+Code+skill." alt="Typing SVG" />
+
+# 🔍 RepoLens
+
+**The GitHub repository analyser you always wished existed — right inside Claude Code.**
 
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-38bdf8?style=flat-square&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-4ade80?style=flat-square)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.8+-818cf8?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![GitHub API](https://img.shields.io/badge/GitHub%20API-v3-f59e0b?style=flat-square&logo=github&logoColor=white)](https://docs.github.com/en/rest)
+[![GitHub API](https://img.shields.io/badge/GitHub%20API-v3-f59e0b?style=flat-square&logo=github)](https://docs.github.com/en/rest)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Dipendr98/Repolens/pulls)
 
-**Deep-dive any GitHub repository in seconds. Scores, charts, PDF reports — all from your terminal.**
-
-[Install Now](#installation) · [Commands](#commands) · [How It Works](#how-it-works) · [Use Cases](#use-cases)
+[⚡ Install](#installation) · [📖 Commands](#commands) · [🏗️ Architecture](#architecture) · [💡 Use Cases](#use-cases)
 
 </div>
 
@@ -17,13 +20,13 @@
 
 ## What Is RepoLens?
 
-Ever stared at a GitHub repo wondering *"Is this actually well-maintained? Is it safe to use? Who really drives this project?"*
+You find a GitHub repo. You want to know: *Is this safe to depend on? Is it actually maintained? Does one person hold everything together? Are there security gaps?*
 
-**RepoLens** answers all of that — instantly.
+Opening the repo manually tells you almost nothing. Stars can be bought. Last-commit dates lie. A beautiful README can hide a dead project.
 
-Drop a GitHub URL into [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and watch 5 parallel AI agents tear through the repository, scoring it across code quality, activity health, contributor dynamics, security posture, and documentation. You get a clean scored report, beautiful charts, and a client-ready PDF — all from a single command.
+**RepoLens sees through all of that.**
 
-No web dashboards. No sign-ups. No API keys needed to get started. Just type `/github analyse <url>` and go.
+Drop any GitHub URL into [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and 5 parallel AI agents immediately go to work — pulling real data from the GitHub API, computing scores across 5 dimensions, generating publication-quality charts, and assembling a professional PDF report. All in under a minute. All from a single terminal command. No dashboards, no sign-ups, no waiting.
 
 ```
 > /github analyse https://github.com/supabase/supabase
@@ -37,9 +40,11 @@ Launching 5 parallel agents...
 
 Overall Repository Score: 81/100  [Grade: B]
 
-📁 Full report saved to GITHUB-ANALYSIS-supabase.md
-📈 Charts saved to charts/supabase/
+📁 Full report → GITHUB-ANALYSIS-supabase.md
+📈 Charts      → charts/supabase/
 ```
+
+> 💡 **RepoLens is a [Claude Code skill](https://docs.anthropic.com/en/docs/claude-code)** — a structured set of AI instructions that live in your terminal and turn Claude into a full-featured repository intelligence tool.
 
 ---
 
@@ -111,9 +116,9 @@ You type /github analyse <url>
                        │
     ┌──────────────────▼───────────────────────────┐
     │           Python Scripts                       │
-    │  fetch_repo.py → GitHub API → local cache      │
+    │  fetch_repo.py  → GitHub API → local cache     │
     │  generate_charts.py → 5 chart types            │
-    │  generate_pdf_report.py → multi-page PDF        │
+    │  generate_pdf_report.py → multi-page PDF       │
     └──────────────────┬───────────────────────────┘
                        │
                Scored report + charts + PDF
@@ -139,29 +144,34 @@ Every repository is graded across 5 dimensions:
 
 ## Charts Generated
 
-Run `/github analyse` or `/github report-pdf` and you get:
+Every full analysis produces 5 ready-to-share charts:
 
-- **🗓️ 52-Week Commit Heatmap** — GitHub-style activity grid showing development pulse
-- **📈 Weekly Commit Trend** — 26-week trend line with 4-week moving average
-- **👥 Contributor Analysis** — Pie chart (share) + bar chart (commits) for top contributors
-- **🔤 Language Breakdown** — Donut chart of language distribution
-- **🐛 Issues & PRs Overview** — Open vs closed bar chart
+| Chart | What it shows |
+|---|---|
+| 🗓️ **52-Week Commit Heatmap** | GitHub-style activity grid — see exactly when development was active |
+| 📈 **Weekly Commit Trend** | 26-week line chart with 4-week moving average |
+| 👥 **Contributor Breakdown** | Pie (share) + bar chart (commits) for top contributors |
+| 🔤 **Language Distribution** | Donut chart of the codebase language split |
+| 🐛 **Issues & PRs Overview** | Open vs closed — at a glance |
 
 ---
 
 ## Use Cases
 
 **🧑‍💻 For Developers**
-Evaluating a new library to add as a dependency? Run `/github analyse` before you `npm install`. Check the bus factor, security posture, and maintenance health — before your project depends on it.
+Evaluating a new library before `npm install`? Run `/github analyse` first. Check the bus factor, security posture, and maintenance health before your project depends on something that might break tomorrow.
 
 **🏢 For Technical Due Diligence**
-Assessing an open-source project for enterprise adoption? Generate a `/github report-pdf` and share it with your engineering lead. It's a professional, client-ready document — not a raw JSON blob.
+Assessing an open-source project for enterprise adoption? Generate `/github report-pdf` and hand it to your engineering lead. It's a multi-page professional document — not a raw API dump.
 
-**🔍 For Comparing Alternatives**
-Can't choose between two state management libraries? `/github compare <url1> <url2>` gives you a head-to-head breakdown across every dimension so you can pick with confidence.
+**⚖️ For Comparing Alternatives**
+Can't decide between two state management libraries? `/github compare <url1> <url2>` gives you a head-to-head breakdown across every dimension so you pick with confidence, not guesswork.
 
 **🛠️ For Maintainers**
-Want to audit your own repo before open-sourcing it? RepoLens will surface your bus factor risk, missing security configs, documentation gaps, and give you a prioritised list of improvements.
+Audit your own repo before open-sourcing it. RepoLens will surface your bus factor risk, missing security configs, documentation gaps, and hand you a prioritised list of what to fix first.
+
+**💼 For Investors & Founders**
+Doing technical due diligence on a startup's open-source stack? RepoLens generates the kind of structured, scored report that belongs in a data room.
 
 ---
 
@@ -217,14 +227,6 @@ Create one at: **GitHub → Settings → Developer Settings → Personal Access 
 
 ---
 
-## Uninstall
-
-```bash
-./uninstall.sh
-```
-
----
-
 ## Requirements
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
@@ -234,9 +236,25 @@ Create one at: **GitHub → Settings → Developer Settings → Personal Access 
 
 ---
 
+## Uninstall
+
+```bash
+./uninstall.sh
+```
+
+---
+
+## Contributing
+
+Pull requests are welcome. If you want to add a new analysis dimension, a new chart type, or support for GitLab / Bitbucket — open an issue and let's talk.
+
+---
+
 ## License
 
-MIT — use it, fork it, build on it. A ⭐ is always appreciated.
+MIT — use it, fork it, build on it.
+
+If RepoLens saved you time, a ⭐ on the repo goes a long way.
 
 ---
 
